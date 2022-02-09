@@ -10,22 +10,23 @@ namespace testRC
     {
         public static int kuriage10(int i)
         {
-            //負の値の確認
-            if (i < 0)
+            if (i == 0)
             {
-                i = -i;
-                i = i / 10;
-                i++;
-                i = i * 10;
-                i = -i;
+                return 0;
+            }
+            else if (i >= 1)
+            {
+                double j = i;
+                i = Convert.ToInt32(Math.Ceiling(j / 10) * 10);
+                return i;
             }
             else
             {
-                i = i / 10;
-                i++;
-                i = i * 10;
+                double j = i;
+                i = Convert.ToInt32(Math.Floor(j / 10) * 10);
+                return i;
             }
-            return i;
+
         }
     }
 }
