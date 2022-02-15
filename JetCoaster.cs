@@ -12,34 +12,41 @@ namespace testRC
         public static int ride
             (int k, int[] g, int r)
         {
-            //スタックの生成
-            var stack = new Stack<int>();
-            //キューの生成
-            var queue = new Queue<int>();
-            //リストの作成
-            var list = new List<int>();
-            
-            //キューに配列を登録
-            for(int i=0;i < g.Length; i++)
+            int youso = 0;
+            int goukei = 0;
+            if (g.Length == 0)
             {
-                queue.Enqueue(g[i]);
+                return 0;
             }
-
-            for (int a = 0; a < r; a++)
+            while (r > 0)
             {
-                int value = queue.Peek();
-
-                while (value <= k)
+                int i = 0;
+                int count = youso;
+                while (i < k + 1)
                 {
-                    stack.Push(value);
-                    //乗った人を最後尾にする
-                    queue.Enqueue(queue.Dequeue());
-                    value = stack.Peek() + queue.Peek();
-                }
+                    i += g[youso];
+                    if (i > k)
+                    {
+                        i -= g[youso];
+                        goukei += i;
 
-                list.Add(stack.Pop());
+                        break;
+                    }
+                    youso += 1;
+
+                    if (youso > g.Length - 1)
+                    {
+                        youso = 0;
+                    }
+                    if (youso == count)
+                    {
+                        goukei += i;
+                        break;
+                    }
+                }
+                r -= 1;
             }
-            return list.Sum();
+            return goukei;
         }
     }
 }
